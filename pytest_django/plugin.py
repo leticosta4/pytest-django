@@ -254,6 +254,7 @@ def _get_boolean_value(
     name: str,
     default: bool | None = None,
 ) -> bool:
+    """so testando aaa"""
     if x is None:
         return bool(default)
     if isinstance(x, bool):
