@@ -12,3 +12,5 @@ def admin_required_view(request: HttpRequest) -> HttpResponse:
 
 def item_count(request: HttpRequest) -> HttpResponse:  # noqa: ARG001
     return HttpResponse(f"Item count: {Item.objects.count()}")
+
+# track-flaky: commit trivial para disparar CI (2026-09-28)
