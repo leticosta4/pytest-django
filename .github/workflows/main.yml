@@ -48,6 +48,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:    
-          # Django 6.1 / Python 3.12–3.14
+        include:
+          # Django 6.1 (stable release) / Python 3.13 / SQLite - tinha outras mas acabei decidindo
           - {name: py313-dj61-sqlite-coverage,           python: '3.13',     allow_failure: false}
+
+  check:  # This job does nothing and is only used for the branch protection
+    if: always()
+
+    needs:
+    - test
+
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Decide whether the needed jobs succeeded or failed
+      uses: re-actors/alls-green@2765efec08f0fd63e83ad900f5fd75646be69ff6
+      with:
+        jobs: ${{ toJSON(needs) }}
