@@ -1,0 +1,72 @@
+name: main-regsmart-nr
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  PYTEST_ADDOPTS: "--color=yes"
+  REGSMART_PACKAGE: "git+https://github.com/leticosta4/pytest-regsmart@6c135576b567d77a8f412693a058cbe67c9e8590"
+
+# Set permissions at the job level.
+permissions: {}
+
+jobs:
+  test-regsmart-nr :
+    runs-on: ubuntu-24.04
+    continue-on-error: ${{ matrix.allow_failure }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      TOXENV: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install uv
+          uv tool install tox==4.28.4 --with tox-uv
+
+      - name: Run tox (regsmart-nr)
+        run: |
+          tox run \
+            -x "testenv.deps+=$REGSMART_PACKAGE" \
+            -- --regsmart --no-rank
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Django 6.1 (stable release) / Python 3.13 / SQLite - tinha outras mas acabei decidindo
+          - {name: py313-dj61-sqlite-coverage,           python: '3.13',     allow_failure: false}
+
+  check:  # This job does nothing and is only used for the branch protection
+    if: always()
+
+    needs:
+    - test-regsmart-nr
+
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Decide whether the needed jobs succeeded or failed
+      uses: re-actors/alls-green@2765efec08f0fd63e83ad900f5fd75646be69ff6
+      with:
+        jobs: ${{ toJSON(needs) }}

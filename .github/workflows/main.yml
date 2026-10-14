@@ -45,6 +45,10 @@ jobs:
       - name: Run tox
         run: tox
 
+        run: |
+          tox run \
+            -- -p no:pytest-ranking -p no:regsmart
+
     strategy:
       fail-fast: false
       matrix:
