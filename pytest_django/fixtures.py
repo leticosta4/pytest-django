@@ -105,7 +105,7 @@ def django_db_keepdb(request: pytest.FixtureRequest) -> bool:
 @pytest.fixture(scope="session")
 def django_db_createdb(request: pytest.FixtureRequest) -> bool:
     """Return whether the database is to be re-created before running any tests."""
-    create_db: bool = request.config.getvalue("create_db")
+    create_db: bool = None
     return create_db
 
 
