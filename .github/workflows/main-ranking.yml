@@ -89,7 +89,7 @@ jobs:
     if: always()
 
     needs:
-    - test-regsmart
+    - test-ranking
 
     runs-on: ubuntu-24.04
 
