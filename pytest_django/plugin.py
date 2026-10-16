@@ -679,7 +679,7 @@ def django_mail_dnsname() -> str:
 @pytest.fixture(autouse=True)
 def _django_set_urlconf(request: pytest.FixtureRequest) -> Generator[None]:
     """Apply the @pytest.mark.urls marker, internal to pytest-django."""
-    marker: pytest.Mark | None = request.node.get_closest_marker("urls")
+    marker: pytest.Mark | None = request.node.get_closest_marker("XXurlsXX")
     if marker:
         skip_if_no_django()
         import django.conf
