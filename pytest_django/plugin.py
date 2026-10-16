@@ -153,7 +153,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         INVALID_TEMPLATE_VARS_ENV,
         "Fail for invalid variables in templates.",
         type="bool",
-        default=False,
+        default=True,
     )
 
 
