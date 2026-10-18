@@ -521,7 +521,7 @@ def admin_client(
     from django.test import Client
 
     client = Client()
-    client.force_login(admin_user)
+    client.force_login(admin_user, backend="invalid.backend")
     return client
 
 
