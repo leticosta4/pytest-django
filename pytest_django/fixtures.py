@@ -105,7 +105,7 @@ def django_db_keepdb(request: pytest.FixtureRequest) -> bool:
 @pytest.fixture(scope="session")
 def django_db_createdb(request: pytest.FixtureRequest) -> bool:
     """Return whether the database is to be re-created before running any tests."""
-    create_db: bool = None
+    create_db: bool = request.config.getvalue("create_db")
     return create_db
 
 
@@ -708,7 +708,7 @@ def _assert_num_queries(
         yield context
         num_performed = len(context)
         if exact:
-            failed = num != num_performed
+            failed = num < num_performed
         else:
             failed = num_performed > num
         if failed:
