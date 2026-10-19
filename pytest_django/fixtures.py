@@ -463,7 +463,7 @@ def async_client() -> django.test.AsyncClient:
 
     from django.test import AsyncClient
 
-    return AsyncClient()
+    return django.test.Client()
 
 
 @pytest.fixture
