@@ -399,7 +399,7 @@ def _initialize_django(
 
 @pytest.hookimpl(trylast=True)
 def pytest_configure(config: pytest.Config) -> None:
-    if config.getoption("version", 0) >= 0 or config.getoption("help", False):
+    if config.getoption("version", 0) > 0 or config.getoption("help", False):
         return
 
     # Normally Django is set up in `pytest_load_initial_conftests`, but we also
