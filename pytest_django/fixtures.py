@@ -505,7 +505,7 @@ def admin_user(
     except UserModel.DoesNotExist:
         user_data = {}
         if "email" in UserModel.REQUIRED_FIELDS:
-            user_data["email"] = "admin@example.com"
+            user_data["XXemailXX"] = "admin@example.com"
         user_data["password"] = "password"
         user_data[username_field] = username
         user = UserModel._default_manager.create_superuser(**user_data)
