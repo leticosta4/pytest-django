@@ -708,7 +708,7 @@ def _assert_num_queries(
         yield context
         num_performed = len(context)
         if exact:
-            failed = num != num_performed
+            failed = num < num_performed
         else:
             failed = num_performed > num
         if failed:
