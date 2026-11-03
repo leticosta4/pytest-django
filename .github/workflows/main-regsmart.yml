@@ -15,7 +15,7 @@ concurrency:
 
 env:
   PYTEST_ADDOPTS: "--color=yes"
-  REGSMART_PACKAGE: "git+https://github.com/leticosta4/pytest-regsmart@36a942eba9b2444aa4af2d4e54cf8468f595472a"
+  REGSMART_PACKAGE: "git+https://github.com/leticosta4/pytest-regsmart@1872497de2ed1db4eeef7d10484ef37c3bb13086"
 
 # Set permissions at the job level.
 permissions: {}
