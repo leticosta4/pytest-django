@@ -59,7 +59,8 @@ jobs:
           tox run \
             -x "testenv.deps+=$REGSMART_PACKAGE" \
             -x "testenv.deps+=pytest-reportlog" \
-            -- --regsmart --ranking-weight=${{ matrix.weight }} \
+            -- -o cache_dir="$GITHUB_WORKSPACE/.pytest_cache" \
+              --regsmart --ranking-weight=${{ matrix.weight }} \
               --report-log="$GITHUB_WORKSPACE/reportlog.jsonl"
 
       - name: Save pytest-regsmart cache
