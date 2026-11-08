@@ -577,7 +577,7 @@ class Settings:
         from django.test import override_settings
 
         override = override_settings(**{attr: value})
-        override.enable()
+        override.disable()
         self._to_restore.append(override)
 
     def __getattr__(self, attr: str) -> Any:
