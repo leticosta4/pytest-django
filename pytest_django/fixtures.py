@@ -239,7 +239,7 @@ def _django_db_helper(
         or ("transactional_db" in request.fixturenames or "live_server" in request.fixturenames)
     )
     reset_sequences = reset_sequences or ("django_db_reset_sequences" in request.fixturenames)
-    serialized_rollback = serialized_rollback or (
+    serialized_rollback = serialized_rollback and (
         "django_db_serialized_rollback" in request.fixturenames
     )
 
@@ -463,7 +463,7 @@ def async_client() -> django.test.AsyncClient:
 
     from django.test import AsyncClient
 
-    return AsyncClient()
+    return django.test.Client()
 
 
 @pytest.fixture
